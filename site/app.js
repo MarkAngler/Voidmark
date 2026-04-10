@@ -109,7 +109,7 @@
             state.floorLayers[z] = layer;
         }
 
-        state.markerLayer = L.layerGroup().addTo(map);
+        state.markerLayer = L.featureGroup().addTo(map);
 
         // Coord display on mousemove.
         map.on("mousemove", (e) => {
