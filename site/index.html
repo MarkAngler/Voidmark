@@ -44,6 +44,21 @@
         </div>
     </div>
 
+    <div class="panel" id="panel-route" style="display:none">
+        <div class="panel-header">
+            Route
+            <button id="route-clear" class="btn-sm">Clear</button>
+        </div>
+        <div class="panel-body">
+            <div id="route-status">Click a spawn marker, then "Route here".</div>
+            <div id="route-info" style="display:none">
+                <div class="route-stat"><span class="k">Distance</span><span class="v" id="route-dist"></span></div>
+                <div class="route-stat"><span class="k">Floor changes</span><span class="v" id="route-fc-count"></span></div>
+                <ul id="route-waypoints"></ul>
+            </div>
+        </div>
+    </div>
+
     <div class="panel" id="panel-list">
         <div class="panel-header">
             Creatures
@@ -92,6 +107,7 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js" crossorigin=""></script>
+<script src="pathfind.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

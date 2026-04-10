@@ -37,7 +37,18 @@ FLAG_BLOCK_SOLID = 1 << 0
 FLAG_BLOCK_PROJECTILE = 1 << 1
 FLAG_BLOCK_PATHFIND = 1 << 2
 FLAG_STACKABLE = 1 << 7
+FLAG_FLOORCHANGE_DOWN = 1 << 8
+FLAG_FLOORCHANGE_NORTH = 1 << 9
+FLAG_FLOORCHANGE_EAST = 1 << 10
+FLAG_FLOORCHANGE_SOUTH = 1 << 11
+FLAG_FLOORCHANGE_WEST = 1 << 12
 FLAG_ALWAYS_ON_TOP = 1 << 13
+
+FC_DOWN = 1
+FC_NORTH = 2
+FC_EAST = 4
+FC_SOUTH = 8
+FC_WEST = 16
 
 ITEM_ATTR_SERVERID = 0x10
 ITEM_ATTR_CLIENTID = 0x11
@@ -90,12 +101,25 @@ def load_items(path):
                     minimap_color = struct.unpack_from("<H", chunk, 0)[0]
 
             if server_id is not None:
+                fc = 0
+                if flags & FLAG_FLOORCHANGE_DOWN:
+                    fc |= FC_DOWN
+                if flags & FLAG_FLOORCHANGE_NORTH:
+                    fc |= FC_NORTH
+                if flags & FLAG_FLOORCHANGE_EAST:
+                    fc |= FC_EAST
+                if flags & FLAG_FLOORCHANGE_SOUTH:
+                    fc |= FC_SOUTH
+                if flags & FLAG_FLOORCHANGE_WEST:
+                    fc |= FC_WEST
                 items[server_id] = {
                     "group": group,
                     "flags": flags,
                     "stackable": bool(flags & FLAG_STACKABLE),
                     "block_solid": bool(flags & FLAG_BLOCK_SOLID),
+                    "block_pathfind": bool(flags & FLAG_BLOCK_PATHFIND),
                     "always_on_top": bool(flags & FLAG_ALWAYS_ON_TOP),
+                    "floorchange": fc,
                     "minimap_color": minimap_color,
                     "client_id": client_id,
                 }
@@ -119,6 +143,14 @@ if __name__ == "__main__":
         if it:
             print(f"  id={sid:5d} group={it['group']} flags=0x{it['flags']:04x} "
                   f"block_solid={it['block_solid']} minimap_color={it['minimap_color']}")
+        else:
+            print(f"  id={sid:5d} NOT FOUND")
+    fc_items = [(sid, it) for sid, it in items.items() if it["floorchange"]]
+    print(f"  Items with OTB floor-change flags: {len(fc_items)}")
+    for sid in (294, 369, 383, 410, 428, 1385, 1388, 1390, 1392, 1394, 3687):
+        it = items.get(sid)
+        if it:
+            print(f"  id={sid:5d} floorchange={it['floorchange']:>2d} block_pathfind={it['block_pathfind']}")
         else:
             print(f"  id={sid:5d} NOT FOUND")
     # Stackable item count (needed for tile ground count-byte heuristic)

@@ -22,6 +22,11 @@
         markerMode: true,
         heatMode: false,
         showOtherZ: true,
+        routeLayer: null,
+        routeDest: null,   // {x, y, z}
+        routeStart: null,  // {x, y, z}
+        routePath: null,   // [{x, y, z}, ...]
+        routeMode: false,  // waiting for start-point click
     };
 
     const FLOOR_LABELS = {
@@ -110,6 +115,7 @@
         }
 
         state.markerLayer = L.featureGroup().addTo(map);
+        state.routeLayer = L.featureGroup().addTo(map);
 
         // Coord display on mousemove.
         map.on("mousemove", (e) => {
@@ -135,10 +141,9 @@
         }
         state.floor = z;
         state.floorLayers[z].addTo(state.map);
-        // Keep tile layer at the bottom under markers
-        if (state.markerLayer) {
-            state.markerLayer.bringToFront();
-        }
+        // Keep tile layer at the bottom under markers and route
+        if (state.routeLayer) state.routeLayer.bringToFront();
+        if (state.markerLayer) state.markerLayer.bringToFront();
         document.getElementById("floor-value").textContent = z;
         document.getElementById("floor-label").textContent = FLOOR_LABELS[z] || "";
         document.getElementById("floor-slider").value = z;
@@ -147,6 +152,7 @@
             renderSpawns(state.selected);
             renderDensity(state.selected);
         }
+        updateRouteVisibility();
         pushHash();
     }
 
@@ -157,6 +163,7 @@
         bindFloorSlider();
         bindModeToggles();
         bindSortToggle();
+        bindRoute();
     }
 
     function creatureRowHtml(name, count) {
@@ -419,6 +426,7 @@
             <div class="title">Spawn #${sp.id}</div>
             <div class="meta">x:${sp.cx} y:${sp.cy} z:${sp.cz} · radius ${sp.r}</div>
             <ul class="list">${items}</ul>
+            <button class="route-btn" data-cx="${sp.cx}" data-cy="${sp.cy}" data-cz="${sp.cz}">Route here</button>
         </div>`;
     }
 
@@ -445,6 +453,227 @@
         });
     }
 
+    /* ---------- route ---------- */
+    function bindRoute() {
+        // Delegate clicks on "Route here" buttons inside Leaflet popups
+        document.addEventListener("click", (e) => {
+            const btn = e.target.closest(".route-btn");
+            if (!btn) return;
+            const cx = parseInt(btn.dataset.cx, 10);
+            const cy = parseInt(btn.dataset.cy, 10);
+            const cz = parseInt(btn.dataset.cz, 10);
+            enterRouteMode(cx, cy, cz);
+            state.map.closePopup();
+        });
+
+        document.getElementById("route-clear").addEventListener("click", clearRoute);
+
+        // Map click handler for setting start point
+        state.map.on("click", (e) => {
+            if (!state.routeMode) return;
+            const p = state.map.project(e.latlng, state.meta.max_native_zoom);
+            const wx = Math.round(p.x + state.meta.origin.x);
+            const wy = Math.round(p.y + state.meta.origin.y);
+            computeRoute(wx, wy, state.floor);
+        });
+    }
+
+    function enterRouteMode(destX, destY, destZ) {
+        state.routeDest = { x: destX, y: destY, z: destZ };
+        state.routeMode = true;
+        state.routePath = null;
+        state.routeStart = null;
+        state.routeLayer.clearLayers();
+
+        document.getElementById("map").classList.add("route-mode");
+        document.getElementById("panel-route").style.display = "";
+        const status = document.getElementById("route-status");
+        status.textContent = "Click the map to set your starting position.";
+        status.className = "";
+        document.getElementById("route-info").style.display = "none";
+
+        // Show destination marker
+        const ll = worldToLatLng(destX, destY);
+        L.circleMarker(ll, {
+            radius: 8, color: "#f2a33a", weight: 3,
+            fillColor: "#f2a33a", fillOpacity: 0.7,
+        }).addTo(state.routeLayer).bindTooltip("Destination", { permanent: false });
+    }
+
+    async function computeRoute(startX, startY, startZ) {
+        state.routeStart = { x: startX, y: startY, z: startZ };
+        state.routeMode = false;
+        document.getElementById("map").classList.remove("route-mode");
+        document.getElementById("panel-route").style.display = "";
+
+        const status = document.getElementById("route-status");
+        status.textContent = "Loading navigation data...";
+        status.className = "computing";
+
+        try {
+            await Pathfinder.loadData(DATA_URL);
+        } catch (err) {
+            status.textContent = "Failed to load navigation data.";
+            status.className = "error";
+            console.error(err);
+            return;
+        }
+
+        status.textContent = "Computing route...";
+
+        // Defer to next frame so the UI updates
+        await new Promise(r => requestAnimationFrame(r));
+
+        // Snap start and end to nearest walkable tiles
+        const snapStart = Pathfinder.nearestWalkable(startX, startY, startZ, 10);
+        const dest = state.routeDest;
+        const snapEnd = Pathfinder.nearestWalkable(dest.x, dest.y, dest.z, 10);
+
+        if (!snapStart || !snapEnd) {
+            status.textContent = "Start or destination is not near any walkable tile.";
+            status.className = "error";
+            state.routeMode = true;
+            document.getElementById("map").classList.add("route-mode");
+            return;
+        }
+
+        const path = Pathfinder.route(snapStart.x, snapStart.y, snapStart.z, snapEnd.x, snapEnd.y, snapEnd.z);
+
+        if (!path) {
+            status.textContent = "No path found. Try a different starting point.";
+            status.className = "error";
+            // Allow clicking again
+            state.routeMode = true;
+            document.getElementById("map").classList.add("route-mode");
+            return;
+        }
+
+        state.routePath = path;
+        drawRoute(path);
+        showRouteInfo(path);
+        pushHash();
+    }
+
+    function drawRoute(path) {
+        state.routeLayer.clearLayers();
+        const segments = Pathfinder.segmentByFloor(path);
+
+        // Start marker
+        const startPt = path[0];
+        L.circleMarker(worldToLatLng(startPt.x, startPt.y), {
+            radius: 8, color: "#57c28a", weight: 3,
+            fillColor: "#57c28a", fillOpacity: 0.7,
+        }).addTo(state.routeLayer).bindTooltip("Start", { permanent: false });
+
+        // End marker
+        const endPt = path[path.length - 1];
+        L.circleMarker(worldToLatLng(endPt.x, endPt.y), {
+            radius: 8, color: "#f2a33a", weight: 3,
+            fillColor: "#f2a33a", fillOpacity: 0.7,
+        }).addTo(state.routeLayer).bindTooltip("Destination", { permanent: false });
+
+        // Polyline per floor segment
+        for (const seg of segments) {
+            const simplified = Pathfinder.simplifySegment(seg.points);
+            const latlngs = simplified.map(p => worldToLatLng(p.x, p.y));
+            const onFloor = seg.z === state.floor;
+            const line = L.polyline(latlngs, {
+                color: "#76b3ff",
+                weight: onFloor ? 4 : 2,
+                opacity: onFloor ? 0.9 : 0.25,
+                dashArray: onFloor ? null : "6,4",
+                _routeFloor: seg.z,
+            });
+            line.addTo(state.routeLayer);
+        }
+
+        // Floor-change markers
+        for (let i = 1; i < path.length; i++) {
+            if (path[i].z !== path[i - 1].z) {
+                const pt = path[i - 1];
+                const fromZ = path[i - 1].z;
+                const toZ = path[i].z;
+                const ll = worldToLatLng(pt.x, pt.y);
+                const marker = L.circleMarker(ll, {
+                    radius: 6, color: "#76b3ff", weight: 2,
+                    fillColor: "#1c2130", fillOpacity: 0.9,
+                    _routeFloor: fromZ,
+                });
+                marker.bindTooltip(`z${fromZ} → z${toZ}`, { permanent: false });
+                marker.on("click", () => setFloor(toZ));
+                marker.addTo(state.routeLayer);
+            }
+        }
+    }
+
+    function updateRouteVisibility() {
+        if (!state.routeLayer) return;
+        state.routeLayer.eachLayer((layer) => {
+            if (layer.options && layer.options._routeFloor !== undefined) {
+                const onFloor = layer.options._routeFloor === state.floor;
+                if (layer.setStyle) {
+                    layer.setStyle({
+                        opacity: onFloor ? 0.9 : 0.25,
+                        weight: onFloor ? (layer instanceof L.Polyline && !(layer instanceof L.CircleMarker) ? 4 : 2) : 2,
+                        dashArray: onFloor ? null : "6,4",
+                    });
+                }
+            }
+        });
+    }
+
+    function showRouteInfo(path) {
+        const status = document.getElementById("route-status");
+        status.textContent = "Route found.";
+        status.className = "";
+        document.getElementById("route-info").style.display = "";
+
+        document.getElementById("route-dist").textContent = `${path.length} tiles`;
+
+        // Count floor changes
+        const floorChanges = [];
+        for (let i = 1; i < path.length; i++) {
+            if (path[i].z !== path[i - 1].z) {
+                floorChanges.push({ from: path[i - 1], to: path[i] });
+            }
+        }
+        document.getElementById("route-fc-count").textContent = floorChanges.length;
+
+        const wpList = document.getElementById("route-waypoints");
+        if (floorChanges.length === 0) {
+            wpList.innerHTML = "";
+            return;
+        }
+        wpList.innerHTML = floorChanges.map((fc, i) => {
+            const label = FLOOR_LABELS[fc.to.z] || `z${fc.to.z}`;
+            return `<li data-idx="${i}" data-x="${fc.from.x}" data-y="${fc.from.y}" data-z="${fc.to.z}">
+                <span>${fc.from.x}, ${fc.from.y}</span>
+                <span class="fc-arrow">z${fc.from.z} → z${fc.to.z}</span>
+            </li>`;
+        }).join("");
+
+        wpList.querySelectorAll("li").forEach(li => {
+            li.addEventListener("click", () => {
+                const x = parseInt(li.dataset.x, 10);
+                const y = parseInt(li.dataset.y, 10);
+                const z = parseInt(li.dataset.z, 10);
+                setFloor(z);
+                state.map.panTo(worldToLatLng(x, y), { animate: true });
+            });
+        });
+    }
+
+    function clearRoute() {
+        state.routeMode = false;
+        state.routeDest = null;
+        state.routeStart = null;
+        state.routePath = null;
+        state.routeLayer.clearLayers();
+        document.getElementById("map").classList.remove("route-mode");
+        document.getElementById("panel-route").style.display = "none";
+        pushHash();
+    }
+
     /* ---------- URL state ---------- */
     function pushHash() {
         if (!state.map) return;
@@ -455,6 +684,8 @@
         const zoom = state.map.getZoom();
         const parts = [`z=${state.floor}`, `x=${wx}`, `y=${wy}`, `zoom=${zoom}`];
         if (state.selected) parts.push(`m=${encodeURIComponent(state.selected)}`);
+        if (state.routeStart) parts.push(`rs=${state.routeStart.x},${state.routeStart.y},${state.routeStart.z}`);
+        if (state.routeDest) parts.push(`rd=${state.routeDest.x},${state.routeDest.y},${state.routeDest.z}`);
         history.replaceState(null, "", "#" + parts.join("&"));
     }
 
@@ -475,6 +706,14 @@
         }
         if (params.m) {
             setTimeout(() => selectCreature(params.m), 50);
+        }
+        if (params.rs && params.rd) {
+            const rsParts = params.rs.split(",").map(Number);
+            const rdParts = params.rd.split(",").map(Number);
+            if (rsParts.length === 3 && rdParts.length === 3) {
+                state.routeDest = { x: rdParts[0], y: rdParts[1], z: rdParts[2] };
+                setTimeout(() => computeRoute(rsParts[0], rsParts[1], rsParts[2]), 100);
+            }
         }
     }
 

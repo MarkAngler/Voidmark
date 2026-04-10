@@ -18,6 +18,7 @@ sys.path.insert(0, HERE)
 from render_floors import build as build_tiles  # noqa: E402
 from extract_spawns import extract as extract_spawns  # noqa: E402
 from extract_monsters import extract as extract_monsters  # noqa: E402
+from extract_navdata import extract as extract_navdata  # noqa: E402
 
 
 def main():
@@ -46,6 +47,14 @@ def main():
     extract_monsters(
         monster_dir=os.path.join(root, "data/monster"),
         out_path=os.path.join(site, "data/monsters.json"),
+    )
+
+    print("\n=== 4. Extract navigation data ===")
+    extract_navdata(
+        otbm_zip_path=os.path.join(root, "data/world/world.zip"),
+        items_otb_path=os.path.join(root, "data/items/items.otb"),
+        items_xml_path=os.path.join(root, "data/items/items.xml"),
+        out_path=os.path.join(site, "data/navdata.json"),
     )
 
     print(f"\nAll stages complete in {time.time() - t0:.1f}s.")

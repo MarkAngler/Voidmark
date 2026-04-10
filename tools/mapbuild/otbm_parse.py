@@ -85,7 +85,9 @@ OTBM_ATTR_SCRIPTPROTECTED = 42
 OTBM_ATTR_DUALWIELD = 43
 
 
-TileRecord = namedtuple("TileRecord", ["x", "y", "z", "ground_id", "has_blocking"])
+TileRecord = namedtuple("TileRecord", [
+    "x", "y", "z", "ground_id", "has_blocking", "block_pathfind", "floor_change",
+])
 
 
 def _has_count_byte(item_id, items_data):
@@ -100,23 +102,38 @@ def _is_block_solid(item_id, items_data):
     return info is not None and info["block_solid"]
 
 
+def _is_block_pathfind(item_id, items_data):
+    info = items_data.get(item_id)
+    return info is not None and info.get("block_pathfind", False)
+
+
+def _get_floor_change(item_id, items_data):
+    info = items_data.get(item_id)
+    if info is None:
+        return 0
+    return info.get("floorchange", 0)
+
+
 def _read_tile_props(props, is_housetile, items_data):
-    """Consume a tile node's props (already a PropReader). Returns ground_id
-    (or None). Recovers on attribute errors by stopping early.
+    """Consume a tile node's props (already a PropReader). Returns
+    (ground_id, (dx, dy), block_pathfind, floor_change).
+    Recovers on attribute errors by stopping early.
     """
     # tile coord offsets (always present)
     try:
         _dx = props.u8()
         _dy = props.u8()
     except ValueError:
-        return None, (None, None)
+        return None, (None, None), False, 0
     if is_housetile:
         try:
             props.u32()  # house id
         except ValueError:
-            return None, (_dx, _dy)
+            return None, (_dx, _dy), False, 0
 
     ground_id = None
+    bp = False
+    fc = 0
     while not props.eof():
         try:
             attr = props.u8()
@@ -137,6 +154,8 @@ def _read_tile_props(props, is_housetile, items_data):
                     props.u8()
                 except ValueError:
                     break
+            bp = bp or _is_block_pathfind(item_id, items_data)
+            fc |= _get_floor_change(item_id, items_data)
             # First ATTR_ITEM in a tile is the ground; later ones are
             # stacked items (rare in stock maps but handled).
             if ground_id is None and items_data.get(item_id, {}).get("group") == ITEM_GROUP_GROUND:
@@ -148,12 +167,12 @@ def _read_tile_props(props, is_housetile, items_data):
         else:
             # Unknown attr inside a tile — stop to avoid desyncing.
             break
-    return ground_id, (_dx, _dy)
+    return ground_id, (_dx, _dy), bp, fc
 
 
 def walk_tiles(data, items_data, progress=None):
-    """Yield TileRecord(x, y, z, ground_id, has_blocking) for every tile in
-    the OTBM buffer `data`. `items_data` is the dict from otb_items.load_items.
+    """Yield TileRecord for every tile in the OTBM buffer `data`.
+    `items_data` is the dict from otb_items.load_items.
     `progress` is an optional callable(tiles_seen) invoked every ~100000 tiles.
     """
     # State
@@ -163,6 +182,8 @@ def walk_tiles(data, items_data, progress=None):
     pending_tile = None   # (x, y, z) of the tile currently open
     current_ground = None
     current_blocking = False
+    current_block_pathfind = False
+    current_floor_change = 0
 
     tiles_seen = 0
     item_depth = 0        # depth of nested OTBM_ITEM nodes (for walls on tile)
@@ -186,7 +207,7 @@ def walk_tiles(data, items_data, progress=None):
             if not in_area:
                 continue
             if ntype in (OTBM_TILE, OTBM_HOUSETILE):
-                ground, (dx, dy) = _read_tile_props(
+                ground, (dx, dy), bp, fc = _read_tile_props(
                     props, ntype == OTBM_HOUSETILE, items_data
                 )
                 if dx is None:
@@ -194,6 +215,8 @@ def walk_tiles(data, items_data, progress=None):
                 pending_tile = (base_x + dx, base_y + dy, base_z)
                 current_ground = ground
                 current_blocking = False
+                current_block_pathfind = bp
+                current_floor_change = fc
                 continue
             if ntype == OTBM_ITEM:
                 # Stacked item on a tile (or nested container item).
@@ -205,6 +228,9 @@ def walk_tiles(data, items_data, progress=None):
                             props.u8()
                         if _is_block_solid(item_id, items_data):
                             current_blocking = True
+                        if _is_block_pathfind(item_id, items_data):
+                            current_block_pathfind = True
+                        current_floor_change |= _get_floor_change(item_id, items_data)
                     except ValueError:
                         pass
                 continue
@@ -218,13 +244,18 @@ def walk_tiles(data, items_data, progress=None):
             if ntype in (OTBM_TILE, OTBM_HOUSETILE):
                 if pending_tile is not None:
                     x, y, z = pending_tile
-                    yield TileRecord(x, y, z, current_ground, current_blocking)
+                    yield TileRecord(
+                        x, y, z, current_ground, current_blocking,
+                        current_block_pathfind, current_floor_change,
+                    )
                     tiles_seen += 1
                     if progress is not None and (tiles_seen % 100000) == 0:
                         progress(tiles_seen)
                 pending_tile = None
                 current_ground = None
                 current_blocking = False
+                current_block_pathfind = False
+                current_floor_change = 0
                 item_depth = 0
                 continue
             if ntype == OTBM_ITEM:
