@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voidmark — Tibia Map Explorer</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header id="topbar">
+    <div class="brand">
+        <span class="brand-title">Voidmark</span>
+        <span class="brand-sub">Tibia 7.72 Map Explorer</span>
+    </div>
+    <div class="search">
+        <input id="search" type="text" placeholder="Search a creature..." autocomplete="off" spellcheck="false">
+        <div id="search-results"></div>
+    </div>
+    <div class="coord">
+        <span id="coord-xy">–</span>
+        <span id="coord-z" class="z"></span>
+    </div>
+</header>
+
+<aside id="sidebar">
+    <div class="panel" id="panel-selected">
+        <div class="panel-header">Selected creature</div>
+        <div class="panel-body empty">
+            Pick a creature from the search box or the list to see its spawn locations.
+        </div>
+    </div>
+
+    <div class="panel" id="panel-density">
+        <div class="panel-header">Density</div>
+        <div class="panel-body">
+            <div class="density-total">–</div>
+            <svg id="density-chart" viewBox="0 0 320 140" preserveAspectRatio="none"></svg>
+            <div class="density-legend">
+                <span class="tag floor-active">active floor</span>
+                <span class="tag">other</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" id="panel-list">
+        <div class="panel-header">
+            Creatures
+            <div class="sort-toggle">
+                <button data-sort="name" class="active">A–Z</button>
+                <button data-sort="count">spawns</button>
+            </div>
+        </div>
+        <div class="panel-body">
+            <ul id="creature-list"></ul>
+        </div>
+    </div>
+</aside>
+
+<main id="map"></main>
+
+<aside id="controls">
+    <div class="control-group">
+        <div class="label">Floor</div>
+        <input id="floor-slider" type="range" min="0" max="15" value="7" orient="vertical">
+        <div class="floor-readout">
+            <span id="floor-value">7</span>
+            <span id="floor-label" class="subtle">surface</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="label">Mode</div>
+        <label class="chk"><input id="mode-markers" type="checkbox" checked> markers</label>
+        <label class="chk"><input id="mode-heat" type="checkbox"> heatmap</label>
+        <label class="chk"><input id="mode-otherz" type="checkbox" checked> other floors dimmed</label>
+    </div>
+    <div class="control-group subtle-block">
+        <div class="label">Legend</div>
+        <div class="legend">
+            <div><span class="sw" style="background:#00CC00"></span>grass</div>
+            <div><span class="sw" style="background:#3300CC"></span>water</div>
+            <div><span class="sw" style="background:#FFCC99"></span>sand</div>
+            <div><span class="sw" style="background:#999999"></span>stone</div>
+            <div><span class="sw" style="background:#5B5B5B"></span>wall stack</div>
+            <div><span class="sw spawn-dot"></span>spawn</div>
+        </div>
+    </div>
+</aside>
+
+<div id="loading">Loading Voidmark…</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js" crossorigin=""></script>
+<script src="app.js"></script>
+</body>
+</html>
