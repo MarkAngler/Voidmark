@@ -140,7 +140,11 @@ def extract(otbm_zip_path, items_otb_path, items_xml_path, out_path):
         if not (0 <= lx < WIDTH and 0 <= ly < HEIGHT and 0 <= t.z < 16):
             continue
 
-        walkable = not t.has_blocking and not t.block_pathfind
+        ground_info = items_data.get(t.ground_id)
+        ground_blocks = (ground_info is not None
+                         and ground_info["block_solid"]
+                         and ground_info.get("minimap_color") is not None)
+        walkable = (not ground_blocks and not t.block_pathfind) or bool(t.floor_change)
         if walkable:
             walkable_count += 1
             floor = floors.setdefault(t.z, {})

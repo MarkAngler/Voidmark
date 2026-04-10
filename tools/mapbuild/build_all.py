@@ -19,6 +19,7 @@ from render_floors import build as build_tiles  # noqa: E402
 from extract_spawns import extract as extract_spawns  # noqa: E402
 from extract_monsters import extract as extract_monsters  # noqa: E402
 from extract_navdata import extract as extract_navdata  # noqa: E402
+from calc_hunting import extract as extract_hunting  # noqa: E402
 
 
 def main():
@@ -55,6 +56,12 @@ def main():
         items_otb_path=os.path.join(root, "data/items/items.otb"),
         items_xml_path=os.path.join(root, "data/items/items.xml"),
         out_path=os.path.join(site, "data/navdata.json"),
+    )
+
+    print("\n=== 5. Compute hunting areas ===")
+    extract_hunting(
+        spawns_json_path=os.path.join(site, "data/spawns.json"),
+        out_path=os.path.join(site, "data/hunting_areas.json"),
     )
 
     print(f"\nAll stages complete in {time.time() - t0:.1f}s.")

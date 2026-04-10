@@ -59,6 +59,84 @@
         </div>
     </div>
 
+    <div class="panel" id="panel-hunting" style="display:none">
+        <div class="panel-header">
+            Hunting Calculator
+            <button id="hunting-close" class="btn-sm">Close</button>
+        </div>
+        <div class="panel-body">
+            <div class="hunt-form">
+                <div class="hunt-row">
+                    <label>Level</label>
+                    <input id="hunt-level" type="number" min="8" max="999" value="80">
+                </div>
+                <div class="hunt-row">
+                    <label>Weapon skill</label>
+                    <input id="hunt-skill" type="number" min="10" max="150" value="75">
+                </div>
+                <div class="hunt-row">
+                    <label>Magic level</label>
+                    <input id="hunt-mlvl" type="number" min="0" max="50" value="5">
+                </div>
+                <div class="hunt-row">
+                    <label>Shielding</label>
+                    <input id="hunt-shield" type="number" min="10" max="150" value="60">
+                </div>
+                <div class="hunt-row">
+                    <label>Weapon atk</label>
+                    <input id="hunt-watk" type="number" min="0" max="60" value="38">
+                </div>
+                <div class="hunt-row">
+                    <label>Shield def</label>
+                    <input id="hunt-sdef" type="number" min="0" max="45" value="26">
+                </div>
+                <div class="hunt-row">
+                    <label>Total armor</label>
+                    <input id="hunt-armor" type="number" min="0" max="60" value="30">
+                </div>
+                <div class="hunt-row">
+                    <label>Premium</label>
+                    <input id="hunt-premium" type="checkbox" checked>
+                </div>
+                <div class="hunt-sep"></div>
+                <div class="hunt-row">
+                    <label>Hunt style</label>
+                    <select id="hunt-style">
+                        <option value="melee">Melee only</option>
+                        <option value="melee_exori">Melee + Exori</option>
+                        <option value="melee_rune">Melee + Runes</option>
+                    </select>
+                </div>
+                <div class="hunt-row" id="hunt-rune-row" style="display:none">
+                    <label>Rune type</label>
+                    <select id="hunt-rune">
+                        <option value="gfb">GFB</option>
+                        <option value="avalanche">Avalanche</option>
+                        <option value="thunderstorm">Thunderstorm</option>
+                        <option value="explosion">Explosion</option>
+                        <option value="sd">SD</option>
+                    </select>
+                </div>
+                <div class="hunt-row">
+                    <label>Healing</label>
+                    <select id="hunt-heal">
+                        <option value="exura">Exura</option>
+                        <option value="uh_rune">UH Rune</option>
+                        <option value="ih_rune">IH Rune</option>
+                        <option value="food">Food only</option>
+                    </select>
+                </div>
+                <button id="hunt-calc" class="hunt-btn">Calculate</button>
+            </div>
+            <div id="hunt-summary" style="display:none"></div>
+            <div class="hunt-sort" id="hunt-sort-row" style="display:none">
+                <button data-sort="exp" class="active">Exp/h</button>
+                <button data-sort="safety">Safety</button>
+            </div>
+            <ul id="hunt-results"></ul>
+        </div>
+    </div>
+
     <div class="panel" id="panel-list">
         <div class="panel-header">
             Creatures
@@ -90,6 +168,9 @@
         <label class="chk"><input id="mode-heat" type="checkbox"> heatmap</label>
         <label class="chk"><input id="mode-otherz" type="checkbox" checked> other floors dimmed</label>
     </div>
+    <div class="control-group">
+        <button id="hunting-toggle" class="hunt-toggle-btn">Hunting Calc</button>
+    </div>
     <div class="control-group subtle-block">
         <div class="label">Legend</div>
         <div class="legend">
@@ -108,6 +189,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js" crossorigin=""></script>
 <script src="pathfind.js"></script>
+<script src="hunting.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

@@ -27,6 +27,11 @@
         routeStart: null,  // {x, y, z}
         routePath: null,   // [{x, y, z}, ...]
         routeMode: false,  // waiting for start-point click
+        huntingAreas: null,
+        huntingMode: false,
+        huntingLayer: null,
+        huntingResults: null,
+        huntingSort: "exp",
     };
 
     const FLOOR_LABELS = {
@@ -40,14 +45,16 @@
     /* ---------- bootstrap ---------- */
     async function boot() {
         try {
-            const [meta, monsters, spawns] = await Promise.all([
+            const [meta, monsters, spawns, huntingAreas] = await Promise.all([
                 fetch(DATA_URL + "world_meta.json").then(r => r.json()),
                 fetch(DATA_URL + "monsters.json").then(r => r.json()),
                 fetch(DATA_URL + "spawns.json").then(r => r.json()),
+                fetch(DATA_URL + "hunting_areas.json").then(r => r.json()).catch(() => null),
             ]);
             state.meta = meta;
             state.monsters = monsters;
             state.spawns = spawns;
+            state.huntingAreas = huntingAreas;
             initMap();
             initUI();
             restoreFromHash();
@@ -153,6 +160,7 @@
             renderDensity(state.selected);
         }
         updateRouteVisibility();
+        if (state.huntingMode) renderHuntingMarkers();
         pushHash();
     }
 
@@ -164,6 +172,7 @@
         bindModeToggles();
         bindSortToggle();
         bindRoute();
+        initHunting();
     }
 
     function creatureRowHtml(name, count) {
@@ -672,6 +681,192 @@
         document.getElementById("map").classList.remove("route-mode");
         document.getElementById("panel-route").style.display = "none";
         pushHash();
+    }
+
+    /* ---------- hunting calculator ---------- */
+    function initHunting() {
+        if (!state.huntingAreas) return;
+
+        state.huntingLayer = L.featureGroup().addTo(state.map);
+
+        document.getElementById("hunting-toggle").addEventListener("click", toggleHunting);
+        document.getElementById("hunting-close").addEventListener("click", toggleHunting);
+        document.getElementById("hunt-calc").addEventListener("click", runHuntingCalc);
+
+        document.getElementById("hunt-style").addEventListener("change", (e) => {
+            document.getElementById("hunt-rune-row").style.display =
+                e.target.value === "melee_rune" ? "" : "none";
+        });
+
+        document.querySelectorAll(".hunt-sort button").forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelectorAll(".hunt-sort button").forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                state.huntingSort = btn.dataset.sort;
+                renderHuntingResults();
+            });
+        });
+    }
+
+    function toggleHunting() {
+        state.huntingMode = !state.huntingMode;
+        document.getElementById("panel-hunting").style.display = state.huntingMode ? "" : "none";
+        document.getElementById("hunting-toggle").classList.toggle("active", state.huntingMode);
+        if (!state.huntingMode) {
+            state.huntingLayer.clearLayers();
+            state.huntingResults = null;
+        }
+    }
+
+    function getHuntingProfile() {
+        return HuntingCalc.makeProfile({
+            level: parseInt(document.getElementById("hunt-level").value, 10) || 50,
+            weaponSkill: parseInt(document.getElementById("hunt-skill").value, 10) || 60,
+            magicLevel: parseInt(document.getElementById("hunt-mlvl").value, 10) || 4,
+            shieldSkill: parseInt(document.getElementById("hunt-shield").value, 10) || 50,
+            weaponAttack: parseInt(document.getElementById("hunt-watk").value, 10) || 30,
+            shieldDefense: parseInt(document.getElementById("hunt-sdef").value, 10) || 23,
+            totalArmor: parseInt(document.getElementById("hunt-armor").value, 10) || 25,
+            premium: document.getElementById("hunt-premium").checked,
+            huntStyle: document.getElementById("hunt-style").value,
+            runeType: document.getElementById("hunt-rune").value,
+            healMethod: document.getElementById("hunt-heal").value,
+        });
+    }
+
+    function runHuntingCalc() {
+        if (!state.huntingAreas) return;
+        const profile = getHuntingProfile();
+        const areas = state.huntingAreas.areas;
+        state.huntingResults = HuntingCalc.rankAreas(areas, profile, state.monsters);
+
+        const viable = state.huntingResults.filter(r => r.eval.sustainable);
+        const topExp = viable.length > 0 ? viable[0].eval.expHour : 0;
+        const maxHP = HuntingCalc.KNIGHT_BASE_HP + profile.level * HuntingCalc.KNIGHT_HP_PER_LVL;
+        const meleeDmg = HuntingCalc.calcMeleeAvg(profile.weaponSkill, profile.weaponAttack, 1.0);
+
+        const summary = document.getElementById("hunt-summary");
+        summary.style.display = "";
+        summary.innerHTML = `
+            <div class="hunt-stat"><span class="k">Max HP</span><span class="v">${maxHP}</span></div>
+            <div class="hunt-stat"><span class="k">Avg melee hit</span><span class="v">${Math.round(meleeDmg)}</span></div>
+            <div class="hunt-stat"><span class="k">Best exp/h</span><span class="v" style="color:var(--accent)">${topExp.toLocaleString()}</span></div>
+            <div class="hunt-stat"><span class="k">Viable areas</span><span class="v">${viable.length} / ${state.huntingResults.length}</span></div>
+        `;
+
+        document.getElementById("hunt-sort-row").style.display = "";
+        renderHuntingResults();
+        renderHuntingMarkers();
+    }
+
+    function renderHuntingResults() {
+        if (!state.huntingResults) return;
+        const ul = document.getElementById("hunt-results");
+        let results = [...state.huntingResults];
+
+        if (state.huntingSort === "safety") {
+            const order = { safe: 0, moderate: 1, dangerous: 2, lethal: 3 };
+            results.sort((a, b) => {
+                const d = order[a.eval.danger] - order[b.eval.danger];
+                return d !== 0 ? d : b.eval.expHour - a.eval.expHour;
+            });
+        }
+
+        // Show top 80 results
+        results = results.slice(0, 80);
+
+        ul.innerHTML = results.map((r, i) => {
+            const creatures = Object.keys(r.area.creatures)
+                .sort((a, b) => r.area.creatures[b] - r.area.creatures[a])
+                .slice(0, 2)
+                .join(", ");
+            const expStr = r.eval.expHour >= 1000
+                ? (r.eval.expHour / 1000).toFixed(1) + "k"
+                : r.eval.expHour;
+            const runeInfo = r.eval.runesHour > 0
+                ? `${r.eval.runesHour} runes/h`
+                : "";
+            return `<li data-idx="${i}" data-area="${r.area.id}">
+                <div class="hunt-result-top">
+                    <span class="hunt-result-name">${creatures}</span>
+                    <span class="hunt-result-exp">${expStr}/h</span>
+                </div>
+                <div class="hunt-result-meta">
+                    <span class="hunt-badge ${r.eval.danger}">${r.eval.danger}</span>
+                    <span>z${r.area.cz}</span>
+                    ${runeInfo ? `<span>${runeInfo}</span>` : ""}
+                </div>
+            </li>`;
+        }).join("");
+
+        ul.querySelectorAll("li").forEach(li => {
+            li.addEventListener("click", () => {
+                const idx = parseInt(li.dataset.idx, 10);
+                selectHuntingArea(results[idx]);
+            });
+        });
+    }
+
+    function renderHuntingMarkers() {
+        state.huntingLayer.clearLayers();
+        if (!state.huntingResults) return;
+
+        const maxExp = state.huntingResults.length > 0
+            ? state.huntingResults[0].eval.expHour
+            : 1;
+
+        for (const r of state.huntingResults) {
+            if (r.eval.expHour <= 0) continue;
+            const onFloor = r.area.cz === state.floor;
+            if (!onFloor) continue;
+
+            const ll = worldToLatLng(r.area.cx, r.area.cy);
+            const sizeScale = Math.max(5, Math.min(18, 5 + (r.eval.expHour / maxExp) * 13));
+
+            const colors = {
+                safe: "#57c28a",
+                moderate: "#f2c94c",
+                dangerous: "#f2a33a",
+                lethal: "#d4554e",
+            };
+            const color = colors[r.eval.danger] || "#555";
+
+            const marker = L.circleMarker(ll, {
+                radius: sizeScale,
+                color: color,
+                weight: 2,
+                fillColor: color,
+                fillOpacity: 0.4,
+                opacity: 0.8,
+            });
+
+            const creatures = Object.entries(r.area.creatures)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 4)
+                .map(([n, c]) => `${n} x${c}`)
+                .join(", ");
+
+            marker.bindTooltip(
+                `<b>${r.eval.expHour.toLocaleString()} exp/h</b><br>${creatures}`,
+                { direction: "top", opacity: 0.95 }
+            );
+
+            marker.addTo(state.huntingLayer);
+        }
+    }
+
+    function selectHuntingArea(result) {
+        const area = result.area;
+        if (area.cz !== state.floor) {
+            setFloor(area.cz);
+        }
+        const ll = worldToLatLng(area.cx, area.cy);
+        state.map.setView(ll, 3, { animate: true });
+
+        // Highlight in list
+        document.querySelectorAll("#hunt-results li").forEach(li => {
+            li.classList.toggle("active", parseInt(li.dataset.area, 10) === area.id);
+        });
     }
 
     /* ---------- URL state ---------- */
