@@ -85,7 +85,8 @@
         const meta = state.meta;
         const W = meta.size.w;
         const H = meta.size.h;
-        const maxZoom = meta.max_native_zoom;
+        const nativeZoom = meta.max_native_zoom;
+        const maxZoom = nativeZoom + 2;
 
         const map = L.map("map", {
             crs: L.CRS.Simple,
@@ -99,8 +100,8 @@
         });
         state.map = map;
 
-        const sw = map.unproject([0, H], maxZoom);
-        const ne = map.unproject([W, 0], maxZoom);
+        const sw = map.unproject([0, H], nativeZoom);
+        const ne = map.unproject([W, 0], nativeZoom);
         const bounds = L.latLngBounds(sw, ne);
         map.setMaxBounds(bounds.pad(0.25));
         map.fitBounds(bounds);
@@ -112,7 +113,7 @@
                 tileSize: meta.tile_size,
                 minZoom: 0,
                 maxZoom: maxZoom,
-                maxNativeZoom: maxZoom,
+                maxNativeZoom: nativeZoom,
                 noWrap: true,
                 bounds: bounds,
                 errorTileUrl: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkAAIAAAoAAv/lxKUAAAAASUVORk5CYII=",
@@ -126,7 +127,7 @@
 
         // Coord display on mousemove.
         map.on("mousemove", (e) => {
-            const p = map.project(e.latlng, maxZoom);
+            const p = map.project(e.latlng, nativeZoom);
             const wx = Math.round(p.x + meta.origin.x);
             const wy = Math.round(p.y + meta.origin.y);
             document.getElementById("coord-xy").textContent = `x:${wx}  y:${wy}`;
