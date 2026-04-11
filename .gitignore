@@ -18,6 +18,5 @@ theotxserver
 *.o
 
 # Voidmark site build artifacts (regenerable via tools/mapbuild/build_all.py)
-site/tiles/
 tools/mapbuild/__pycache__/
 tools/mapbuild/*.pyc
