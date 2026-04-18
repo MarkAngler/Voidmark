@@ -20,3 +20,7 @@ theotxserver
 # Voidmark site build artifacts (regenerable via tools/mapbuild/build_all.py)
 tools/mapbuild/__pycache__/
 tools/mapbuild/*.pyc
+
+# Vocation balance analysis CSV exports (regenerable via tools/balance/analyze_vocations.py --csv)
+tools/balance/out/
+tools/balance/__pycache__/
