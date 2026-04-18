@@ -1,0 +1,1262 @@
+[
+  {
+    "id": 403,
+    "centroid": [
+      31582,
+      33018,
+      7
+    ],
+    "radius": 8,
+    "creatures": {
+      "dragon lord": 2
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 4200,
+    "ttk_total_s": 71.53,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 211379.84062631064,
+    "simulated_xp_hr_mean": 154070.0,
+    "simulated_xp_hr_lo": 153510.0,
+    "simulated_xp_hr_hi": 154630.0,
+    "uh_per_hr": 603.6333333333333,
+    "net_gp_per_hr": -57405.96666666667,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 404,
+    "centroid": [
+      31592,
+      33058,
+      7
+    ],
+    "radius": 16,
+    "creatures": {
+      "dragon lord": 3
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 6300,
+    "ttk_total_s": 107.295,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 211379.84062631064,
+    "simulated_xp_hr_mean": 203420.0,
+    "simulated_xp_hr_lo": 202720.0,
+    "simulated_xp_hr_hi": 204120.0,
+    "uh_per_hr": 807.1,
+    "net_gp_per_hr": -77058.3,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 1980,
+    "centroid": [
+      32834,
+      32292,
+      10
+    ],
+    "radius": 10,
+    "creatures": {
+      "dragon lord": 4,
+      "scorpion": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 8400,
+    "ttk_total_s": 143.06,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 211379.84062631064,
+    "simulated_xp_hr_mean": 206819.0,
+    "simulated_xp_hr_lo": 205551.5,
+    "simulated_xp_hr_hi": 208156.5,
+    "uh_per_hr": 810.2,
+    "net_gp_per_hr": -77175.2,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 1988,
+    "centroid": [
+      32852,
+      32273,
+      10
+    ],
+    "radius": 1,
+    "creatures": {
+      "dragon lord": 8
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 16800,
+    "ttk_total_s": 286.12,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 211379.84062631064,
+    "simulated_xp_hr_mean": 206290.0,
+    "simulated_xp_hr_lo": 205100.0,
+    "simulated_xp_hr_hi": 207480.0,
+    "uh_per_hr": 810.4333333333333,
+    "net_gp_per_hr": -77138.76666666666,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 2409,
+    "centroid": [
+      32778,
+      32332,
+      12
+    ],
+    "radius": 12,
+    "creatures": {
+      "dragon lord": 6
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 12600,
+    "ttk_total_s": 214.59,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 211379.84062631064,
+    "simulated_xp_hr_mean": 206570.0,
+    "simulated_xp_hr_lo": 205240.0,
+    "simulated_xp_hr_hi": 207970.0,
+    "uh_per_hr": 815.7333333333333,
+    "net_gp_per_hr": -77768.46666666666,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 2415,
+    "centroid": [
+      32824,
+      32248,
+      12
+    ],
+    "radius": 7,
+    "creatures": {
+      "demodras": 2,
+      "dragon lord": 3
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 6300,
+    "ttk_total_s": 107.295,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 211379.84062631064,
+    "simulated_xp_hr_mean": 175866.66666666666,
+    "simulated_xp_hr_lo": 174606.66666666666,
+    "simulated_xp_hr_hi": 177093.5,
+    "uh_per_hr": 714.8333333333334,
+    "net_gp_per_hr": -68813.16666666667,
+    "deaths_per_hr": 1.0
+  },
+  {
+    "id": 2423,
+    "centroid": [
+      32885,
+      32264,
+      12
+    ],
+    "radius": 7,
+    "creatures": {
+      "dragon lord": 5,
+      "ghoul": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 10500,
+    "ttk_total_s": 178.825,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 211379.84062631064,
+    "simulated_xp_hr_mean": 206877.66666666666,
+    "simulated_xp_hr_lo": 206096.33333333334,
+    "simulated_xp_hr_hi": 207726.16666666666,
+    "uh_per_hr": 803.2333333333333,
+    "net_gp_per_hr": -75225.03333333334,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 2408,
+    "centroid": [
+      32782,
+      32308,
+      12
+    ],
+    "radius": 14,
+    "creatures": {
+      "dragon lord": 5,
+      "dragon": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 11200,
+    "ttk_total_s": 192.60999999999999,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 209334.92549711853,
+    "simulated_xp_hr_mean": 204493.33333333334,
+    "simulated_xp_hr_lo": 203303.33333333334,
+    "simulated_xp_hr_hi": 205613.33333333334,
+    "uh_per_hr": 781.6666666666666,
+    "net_gp_per_hr": -73032.06666666667,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 2419,
+    "centroid": [
+      32862,
+      32296,
+      12
+    ],
+    "radius": 23,
+    "creatures": {
+      "dragon lord": 7,
+      "demodras": 1,
+      "demon skeleton": 5,
+      "demon": 1,
+      "ghoul": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 15900,
+    "ttk_total_s": 274.28000000000003,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 208691.84774682802,
+    "simulated_xp_hr_mean": 173656.33333333334,
+    "simulated_xp_hr_lo": 172380.00833333333,
+    "simulated_xp_hr_hi": 174787.72499999998,
+    "uh_per_hr": 745.4,
+    "net_gp_per_hr": -56844.86666666667,
+    "deaths_per_hr": 1.0
+  },
+  {
+    "id": 1854,
+    "centroid": [
+      32262,
+      32466,
+      10
+    ],
+    "radius": 14,
+    "creatures": {
+      "minotaur mage": 1,
+      "minotaur": 4,
+      "dragon": 1,
+      "dragon lord": 2
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 5050,
+    "ttk_total_s": 87.13,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 208653.73579708484,
+    "simulated_xp_hr_mean": 186838.33333333334,
+    "simulated_xp_hr_lo": 186041.25,
+    "simulated_xp_hr_hi": 187670.41666666666,
+    "uh_per_hr": 643.4,
+    "net_gp_per_hr": 71494.4,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 109,
+    "centroid": [
+      33043,
+      32699,
+      4
+    ],
+    "radius": 9,
+    "creatures": {
+      "dragon lord": 2,
+      "dragon": 1
+    },
+    "respawn_avg": 45,
+    "xp_per_cycle": 4900,
+    "ttk_total_s": 85.315,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 206763.17177518609,
+    "simulated_xp_hr_mean": 196490.0,
+    "simulated_xp_hr_lo": 195580.0,
+    "simulated_xp_hr_hi": 197423.33333333334,
+    "uh_per_hr": 727.6333333333333,
+    "net_gp_per_hr": -66344.76666666666,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 866,
+    "centroid": [
+      33070,
+      32570,
+      7
+    ],
+    "radius": 5,
+    "creatures": {
+      "dragon lord": 2,
+      "dragon": 1
+    },
+    "respawn_avg": 67,
+    "xp_per_cycle": 4900,
+    "ttk_total_s": 85.315,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 206763.17177518609,
+    "simulated_xp_hr_mean": 167300.0,
+    "simulated_xp_hr_lo": 166600.0,
+    "simulated_xp_hr_hi": 167953.33333333334,
+    "uh_per_hr": 610.3,
+    "net_gp_per_hr": -55333.5,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 2898,
+    "centroid": [
+      32219,
+      31902,
+      15
+    ],
+    "radius": 5,
+    "creatures": {
+      "banshee": 4,
+      "dragon lord": 2,
+      "giant spider": 2
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 6000,
+    "ttk_total_s": 105.74000000000001,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 204274.63589937583,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 2420,
+    "centroid": [
+      32860,
+      32346,
+      12
+    ],
+    "radius": 16,
+    "creatures": {
+      "dragon lord": 4,
+      "demon skeleton": 10,
+      "demodras": 3,
+      "demon": 4,
+      "ghoul": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 10800,
+    "ttk_total_s": 190.91,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 203656.17306584257,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 2774,
+    "centroid": [
+      32814,
+      32335,
+      14
+    ],
+    "radius": 22,
+    "creatures": {
+      "demon skeleton": 3,
+      "slime": 2,
+      "giant spider": 1,
+      "dragon lord": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 3720,
+    "ttk_total_s": 67.225,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 199211.6028263295,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 55,
+    "centroid": [
+      33102,
+      32585,
+      3
+    ],
+    "radius": 11,
+    "creatures": {
+      "dragon": 2,
+      "dragon lord": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 3500,
+    "ttk_total_s": 63.335,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 198942.1331017605,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 868,
+    "centroid": [
+      33062,
+      32673,
+      7
+    ],
+    "radius": 5,
+    "creatures": {
+      "dragon": 2,
+      "dragon lord": 1
+    },
+    "respawn_avg": 50,
+    "xp_per_cycle": 3500,
+    "ttk_total_s": 63.335,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 198942.1331017605,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 2256,
+    "centroid": [
+      33065,
+      32665,
+      11
+    ],
+    "radius": 14,
+    "creatures": {
+      "scarab": 7,
+      "ancient scarab": 5,
+      "larva": 2
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 3600,
+    "ttk_total_s": 65.2455919395466,
+    "win_rate_product": 0.9630582970465823,
+    "theoretical_xp_hr": 198634.10867676866,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 2257,
+    "centroid": [
+      33065,
+      32778,
+      11
+    ],
+    "radius": 18,
+    "creatures": {
+      "larva": 4,
+      "ancient scarab": 7,
+      "scarab": 7
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 5040,
+    "ttk_total_s": 91.34382871536525,
+    "win_rate_product": 0.9486665946200925,
+    "theoretical_xp_hr": 198634.10867676864,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 1680,
+    "centroid": [
+      33093,
+      31648,
+      9
+    ],
+    "radius": 9,
+    "creatures": {
+      "dragon": 3,
+      "dragon lord": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 4200,
+    "ttk_total_s": 77.12,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 196058.09128630703,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 2489,
+    "centroid": [
+      33296,
+      31703,
+      12
+    ],
+    "radius": 13,
+    "creatures": {
+      "fire elemental": 4,
+      "dragon": 4,
+      "dragon lord": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 4900,
+    "ttk_total_s": 90.905,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 194048.73219294866,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 1314,
+    "centroid": [
+      33223,
+      31696,
+      8
+    ],
+    "radius": 19,
+    "creatures": {
+      "dwarf guard": 7,
+      "cyclops": 13,
+      "dwarf soldier": 8
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 3665,
+    "ttk_total_s": 69.36500000000001,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 190211.20161464714,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 680,
+    "centroid": [
+      32739,
+      32306,
+      7
+    ],
+    "radius": 16,
+    "creatures": {
+      "poison spider": 1,
+      "giant spider": 6,
+      "deer": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 5400,
+    "ttk_total_s": 102.63,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 189418.2987430576,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 1193,
+    "centroid": [
+      32823,
+      32142,
+      8
+    ],
+    "radius": 15,
+    "creatures": {
+      "dragon": 5
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 3500,
+    "ttk_total_s": 68.925,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 182807.39934711644,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 2918,
+    "centroid": [
+      32495,
+      31620,
+      15
+    ],
+    "radius": 17,
+    "creatures": {
+      "warlock": 4,
+      "dragon": 5,
+      "elf arcanist": 1,
+      "stone golem": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 3500,
+    "ttk_total_s": 68.925,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 182807.39934711644,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 695,
+    "centroid": [
+      32792,
+      31583,
+      7
+    ],
+    "radius": 22,
+    "creatures": {
+      "dragon": 6,
+      "rotworm": 2,
+      "skeleton": 3,
+      "scorpion": 3
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 4200,
+    "ttk_total_s": 82.71000000000001,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 182807.3993471164,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 724,
+    "centroid": [
+      32812,
+      31581,
+      7
+    ],
+    "radius": 15,
+    "creatures": {
+      "dragon": 6,
+      "skeleton": 5,
+      "scorpion": 3,
+      "rotworm": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 4200,
+    "ttk_total_s": 82.71000000000001,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 182807.3993471164,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 1847,
+    "centroid": [
+      32225,
+      32466,
+      10
+    ],
+    "radius": 14,
+    "creatures": {
+      "skeleton": 7,
+      "beholder": 1,
+      "demon skeleton": 1,
+      "dragon lord": 1,
+      "dragon": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 3040,
+    "ttk_total_s": 54.334999999999994,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 182400.0,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 2579,
+    "centroid": [
+      32794,
+      32350,
+      13
+    ],
+    "radius": 4,
+    "creatures": {
+      "giant spider": 1,
+      "dragon lord": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 3000,
+    "ttk_total_s": 52.870000000000005,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 180000.0,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 2416,
+    "centroid": [
+      32815,
+      32343,
+      12
+    ],
+    "radius": 23,
+    "creatures": {
+      "dragon lord": 7,
+      "dragon": 1,
+      "behemoth": 3
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 22900,
+    "ttk_total_s": 465.53000000000003,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 177088.47979722035,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 368,
+    "centroid": [
+      33095,
+      32581,
+      6
+    ],
+    "radius": 19,
+    "creatures": {
+      "larva": 1,
+      "scarab": 1,
+      "dragon": 4
+    },
+    "respawn_avg": 57,
+    "xp_per_cycle": 2800,
+    "ttk_total_s": 55.14,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 176842.1052631579,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 2291,
+    "centroid": [
+      33220,
+      32542,
+      11
+    ],
+    "radius": 13,
+    "creatures": {
+      "ancient scarab": 4,
+      "larva": 1,
+      "scarab": 2
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 2880,
+    "ttk_total_s": 52.19647355163728,
+    "win_rate_product": 0.9703358156640627,
+    "theoretical_xp_hr": 172800.0,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 24,
+    "centroid": [
+      33103,
+      32588,
+      2
+    ],
+    "radius": 5,
+    "creatures": {
+      "dragon lord": 1,
+      "dragon": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 2800,
+    "ttk_total_s": 49.55,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 168000.0,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 139,
+    "centroid": [
+      31658,
+      33095,
+      5
+    ],
+    "radius": 19,
+    "creatures": {
+      "dragon": 4
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 2800,
+    "ttk_total_s": 55.14,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 168000.0,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 1625,
+    "centroid": [
+      32855,
+      32141,
+      9
+    ],
+    "radius": 22,
+    "creatures": {
+      "scorpion": 2,
+      "dragon": 4
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 2800,
+    "ttk_total_s": 55.14,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 168000.0,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 1626,
+    "centroid": [
+      32849,
+      32180,
+      9
+    ],
+    "radius": 8,
+    "creatures": {
+      "dragon": 1,
+      "dragon lord": 1,
+      "scorpion": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 2800,
+    "ttk_total_s": 49.55,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 168000.0,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 1631,
+    "centroid": [
+      32880,
+      32155,
+      9
+    ],
+    "radius": 5,
+    "creatures": {
+      "dragon lord": 2
+    },
+    "respawn_avg": 90,
+    "xp_per_cycle": 4200,
+    "ttk_total_s": 71.53,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 168000.0,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 679,
+    "centroid": [
+      32740,
+      32262,
+      7
+    ],
+    "radius": 21,
+    "creatures": {
+      "deer": 1,
+      "giant spider": 3,
+      "poison spider": 1,
+      "wolf": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 2700,
+    "ttk_total_s": 51.315,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 162000.0,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 2766,
+    "centroid": [
+      32764,
+      32288,
+      14
+    ],
+    "radius": 3,
+    "creatures": {
+      "giant spider": 3,
+      "fire devil": 3
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 2700,
+    "ttk_total_s": 51.315,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 162000.0,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 1637,
+    "centroid": [
+      32982,
+      31735,
+      9
+    ],
+    "radius": 9,
+    "creatures": {
+      "slime": 2,
+      "orc warlord": 4,
+      "orc leader": 1,
+      "orc shaman": 1,
+      "orc rider": 1,
+      "orc berserker": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 2680,
+    "ttk_total_s": 54.68,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 160800.0,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 2277,
+    "centroid": [
+      33148,
+      32836,
+      11
+    ],
+    "radius": 8,
+    "creatures": {
+      "demon skeleton": 3,
+      "ancient scarab": 1,
+      "vampire": 1,
+      "lich": 1,
+      "necromancer": 2,
+      "ghost": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 2630,
+    "ttk_total_s": 52.57411838790932,
+    "win_rate_product": 0.9925,
+    "theoretical_xp_hr": 157800.0,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 2587,
+    "centroid": [
+      32819,
+      32338,
+      13
+    ],
+    "radius": 18,
+    "creatures": {
+      "demon skeleton": 2,
+      "dragon lord": 1,
+      "slime": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 2580,
+    "ttk_total_s": 45.335,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 154800.0,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 2798,
+    "centroid": [
+      33096,
+      32544,
+      14
+    ],
+    "radius": 22,
+    "creatures": {
+      "priestess": 1,
+      "demon skeleton": 4,
+      "lich": 1,
+      "ghost": 1,
+      "vampire": 2,
+      "slime": 1,
+      "beholder": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 2440,
+    "ttk_total_s": 50.075,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 146400.0,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 807,
+    "centroid": [
+      32942,
+      32542,
+      7
+    ],
+    "radius": 21,
+    "creatures": {
+      "tarantula": 1,
+      "spit nettle": 2,
+      "carniphila": 2,
+      "giant spider": 1,
+      "cobra": 1,
+      "centipede": 2,
+      "behemoth": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 3400,
+    "ttk_total_s": 84.235,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 145307.7699293643,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 2846,
+    "centroid": [
+      33222,
+      32647,
+      14
+    ],
+    "radius": 20,
+    "creatures": {
+      "mummy": 1,
+      "stone golem": 2,
+      "behemoth": 1,
+      "gargoyle": 1,
+      "demon skeleton": 2,
+      "vampire": 2
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 3560,
+    "ttk_total_s": 88.22999999999999,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 145256.7154029242,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 2674,
+    "centroid": [
+      33296,
+      31659,
+      13
+    ],
+    "radius": 5,
+    "creatures": {
+      "priestess": 1,
+      "dragon": 2,
+      "behemoth": 2
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 6400,
+    "ttk_total_s": 161.82999999999998,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 142371.62454427488,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 2807,
+    "centroid": [
+      33101,
+      32977,
+      14
+    ],
+    "radius": 20,
+    "creatures": {
+      "ghost": 3,
+      "stalker": 3,
+      "vampire": 4,
+      "demon skeleton": 2,
+      "mummy": 5,
+      "beholder": 1,
+      "ancient scarab": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 2360,
+    "ttk_total_s": 45.67911838790931,
+    "win_rate_product": 0.9925,
+    "theoretical_xp_hr": 141600.0,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 2616,
+    "centroid": [
+      33097,
+      32657,
+      13
+    ],
+    "radius": 15,
+    "creatures": {
+      "lich": 1,
+      "vampire": 5,
+      "ghost": 1,
+      "mummy": 1,
+      "gargoyle": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 2350,
+    "ttk_total_s": 48.230000000000004,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 141000.0,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 2831,
+    "centroid": [
+      33177,
+      32660,
+      14
+    ],
+    "radius": 15,
+    "creatures": {
+      "stone golem": 1,
+      "crypt shambler": 1,
+      "demon skeleton": 2,
+      "vampire": 2,
+      "mummy": 1,
+      "behemoth": 2
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 6060,
+    "ttk_total_s": 155.35999999999999,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 140422.24510813595,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  },
+  {
+    "id": 2588,
+    "centroid": [
+      32824,
+      32362,
+      13
+    ],
+    "radius": 15,
+    "creatures": {
+      "dragon lord": 1,
+      "demon skeleton": 1
+    },
+    "respawn_avg": 60,
+    "xp_per_cycle": 2340,
+    "ttk_total_s": 40.55,
+    "win_rate_product": 1.0,
+    "theoretical_xp_hr": 140400.0,
+    "simulated_xp_hr_mean": 0.0,
+    "simulated_xp_hr_lo": 0.0,
+    "simulated_xp_hr_hi": 0.0,
+    "uh_per_hr": 0.0,
+    "net_gp_per_hr": 0.0,
+    "deaths_per_hr": 0.0
+  }
+]

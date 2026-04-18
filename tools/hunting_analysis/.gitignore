@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+oracles/cpp_shim/oracle
+
+# Large re-ingestible artifacts (regenerate via `python3 tools/hunting_analysis/ingest.py`).
+artifacts/ingest/spawns.json
+artifacts/ingest/hunting_areas.json
+artifacts/ingest/monsters.json
