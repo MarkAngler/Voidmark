@@ -87,7 +87,9 @@ OTBM_ATTR_DUALWIELD = 43
 
 TileRecord = namedtuple("TileRecord", [
     "x", "y", "z", "ground_id", "has_blocking", "block_pathfind", "floor_change",
+    "house_id",
 ])
+TileRecord.__new__.__defaults__ = (None,)  # house_id defaults to None
 
 
 def _has_count_byte(item_id, items_data):
@@ -116,7 +118,8 @@ def _get_floor_change(item_id, items_data):
 
 def _read_tile_props(props, is_housetile, items_data):
     """Consume a tile node's props (already a PropReader). Returns
-    (ground_id, (dx, dy), block_pathfind, floor_change).
+    (ground_id, (dx, dy), block_pathfind, floor_change, house_id).
+    `house_id` is the OTBM_HOUSETILE owner id when applicable, else None.
     Recovers on attribute errors by stopping early.
     """
     # tile coord offsets (always present)
@@ -124,12 +127,13 @@ def _read_tile_props(props, is_housetile, items_data):
         _dx = props.u8()
         _dy = props.u8()
     except ValueError:
-        return None, (None, None), False, 0
+        return None, (None, None), False, 0, None
+    house_id = None
     if is_housetile:
         try:
-            props.u32()  # house id
+            house_id = props.u32()
         except ValueError:
-            return None, (_dx, _dy), False, 0
+            return None, (_dx, _dy), False, 0, None
 
     ground_id = None
     bp = False
@@ -167,7 +171,7 @@ def _read_tile_props(props, is_housetile, items_data):
         else:
             # Unknown attr inside a tile — stop to avoid desyncing.
             break
-    return ground_id, (_dx, _dy), bp, fc
+    return ground_id, (_dx, _dy), bp, fc, house_id
 
 
 def walk_tiles(data, items_data, progress=None):
@@ -184,6 +188,7 @@ def walk_tiles(data, items_data, progress=None):
     current_blocking = False
     current_block_pathfind = False
     current_floor_change = 0
+    current_house_id = None
 
     tiles_seen = 0
     item_depth = 0        # depth of nested OTBM_ITEM nodes (for walls on tile)
@@ -207,7 +212,7 @@ def walk_tiles(data, items_data, progress=None):
             if not in_area:
                 continue
             if ntype in (OTBM_TILE, OTBM_HOUSETILE):
-                ground, (dx, dy), bp, fc = _read_tile_props(
+                ground, (dx, dy), bp, fc, hid = _read_tile_props(
                     props, ntype == OTBM_HOUSETILE, items_data
                 )
                 if dx is None:
@@ -217,6 +222,7 @@ def walk_tiles(data, items_data, progress=None):
                 current_blocking = False
                 current_block_pathfind = bp
                 current_floor_change = fc
+                current_house_id = hid
                 continue
             if ntype == OTBM_ITEM:
                 # Stacked item on a tile (or nested container item).
@@ -247,6 +253,7 @@ def walk_tiles(data, items_data, progress=None):
                     yield TileRecord(
                         x, y, z, current_ground, current_blocking,
                         current_block_pathfind, current_floor_change,
+                        current_house_id,
                     )
                     tiles_seen += 1
                     if progress is not None and (tiles_seen % 100000) == 0:
@@ -256,6 +263,7 @@ def walk_tiles(data, items_data, progress=None):
                 current_blocking = False
                 current_block_pathfind = False
                 current_floor_change = 0
+                current_house_id = None
                 item_depth = 0
                 continue
             if ntype == OTBM_ITEM:
